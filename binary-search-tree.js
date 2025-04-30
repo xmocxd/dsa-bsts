@@ -41,14 +41,38 @@ class BinarySearchTree {
    * Returns the tree. Uses recursion. */
 
   insertRecursively(val) {
+    this.root = this.#insertNode(this.root, val);
+    return this;
+  }
 
+  #insertNode (node, val) {
+    if (node === null) {
+      return new Node(val);
+    }
+
+    if (node.val > val) {
+      node.left = this.#insertNode(node.left, val);
+    } else {
+      node.right = this.#insertNode(node.right, val)
+    }
+
+    return node;
   }
 
   /** find(val): search the tree for a node with value val.
    * return the node, if found; else undefined. Uses iteration. */
 
   find(val) {
+    let node = this.root;
 
+    if (node === null) return undefined;
+
+    while (node) {
+      if (node.val === val) return node;
+      node = (node.val > val) ? node.left : node.right;
+    }
+
+    return undefined;
   }
 
   /** findRecursively(val): search the tree for a node with value val.
