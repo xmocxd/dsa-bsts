@@ -46,9 +46,7 @@ class BinarySearchTree {
   }
 
   #insertNode (node, val) {
-    if (node === null) {
-      return new Node(val);
-    }
+    if (node === null) return new Node(val);
 
     if (node.val > val) {
       node.left = this.#insertNode(node.left, val);
@@ -79,7 +77,18 @@ class BinarySearchTree {
    * return the node, if found; else undefined. Uses recursion. */
 
   findRecursively(val) {
+    return this.#findNode(this.root, val);
+  }
 
+  #findNode (node, val) {
+    if (node === null) return undefined;
+    if (node.val === val) return node;
+
+    if (node.val > val) {
+      return this.#findNode(node.left, val);
+    } else {
+      return this.#findNode(node.right, val)
+    }
   }
 
   /** dfsPreOrder(): Traverse the array using pre-order DFS.
